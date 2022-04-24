@@ -9,6 +9,7 @@ const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 
+
 const db = knex({ // run knex() and save it as a variable
     client: 'pg', // pg for postgres (knex can be used with other db too)
     connection: {
@@ -29,11 +30,14 @@ const app = express();
 app.use(express.json()); // this is so that everything in the body is parsed, so that it's js instead of json.
                          // we use it like this bc it's a middleware.
 
+
 app.use(cors()) // cors is to allow remote access control. bc otherwise Chrome doesn't trust our server 
+
 
 app.get('/', (req, res) => {
     res.send('success');
 })
+
 
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) }) /* this is dependency injection. bc the 
                                                     handleSignin function needs the req, res, db and bcrypt, we need to 
@@ -51,6 +55,7 @@ app.put('/image', image.handleImage(db)) /* we can also do it like this. not as 
                                         (req, res) to run the whole function. */
 
 app.post('/imageurl', (req, res) => { image.handleApiCall(req, res) }) 
+
 
 app.listen(process.env.PORT || 3000, () => { // if running on Heroku, use the port they give us, otherwise use 3000.
     console.log(`running on port ${provess.env.PORT}`)
