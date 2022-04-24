@@ -58,5 +58,5 @@ app.post('/imageurl', (req, res) => { image.handleApiCall(req, res) })
 
 
 app.listen(process.env.PORT || 3000, () => { // if running on Heroku, use the port they give us, otherwise use 3000.
-    console.log(`running on port ${provess.env.PORT}`)
+    console.log(`running on port ${process.env.PORT}`)
 })
