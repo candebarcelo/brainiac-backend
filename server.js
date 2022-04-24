@@ -52,6 +52,6 @@ app.put('/image', image.handleImage(db)) /* we can also do it like this. not as 
 
 app.post('/imageurl', (req, res) => { image.handleApiCall(req, res) }) 
 
-app.listen(3000, () => {
-    console.log('running')
+app.listen(process.env.PORT || 3000, () => { // if running on Heroku, use the port they give us, otherwise use 3000.
+    console.log(`running on port ${provess.env.PORT}`)
 })
