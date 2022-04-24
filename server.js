@@ -35,7 +35,7 @@ app.use(cors()) // cors is to allow remote access control. bc otherwise Chrome d
 
 
 app.get('/', (req, res) => {
-    res.send('success');
+    res.send('success'); 
 })
 
 
