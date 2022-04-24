@@ -9,12 +9,15 @@ const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
 
 const db = knex({ // run knex() and save it as a variable
     client: 'pg', // pg for postgres (knex can be used with other db too)
     connection: {
-      connectionString : process.env.DATABASE_URL, // dynamic environment variable
-      ssl: true
+      connection: {
+        connectionString : process.env.DATABASE_URL, // dynamic environment variable
+        ssl: true
+      }
     }
   });
 
