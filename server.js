@@ -13,11 +13,8 @@ const image = require('./controllers/image');
 const db = knex({ // run knex() and save it as a variable
     client: 'pg', // pg for postgres (knex can be used with other db too)
     connection: {
-      host : '127.0.0.1', // localhost
-    //   port : 3306,
-      user : 'postgres', // owner of the db displayed when using \d command in psql
-      password : 'test', // user password
-      database : 'brainiac' // name of the db
+      connectionString : process.env.DATABASE_URL, // dynamic environment variable
+      ssl: true
     }
   });
 
