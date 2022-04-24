@@ -14,10 +14,8 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
 const db = knex({ // run knex() and save it as a variable
     client: 'pg', // pg for postgres (knex can be used with other db too)
     connection: {
-      connection: {
         connectionString : process.env.DATABASE_URL, // dynamic environment variable
         ssl: true
-      }
     }
   });
 
