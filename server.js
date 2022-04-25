@@ -9,7 +9,7 @@ const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0 // this is not secure for use in production, only use for local development
 
 const db = knex({ // run knex() and save it as a variable
     client: 'pg', // pg for postgres (knex can be used with other db too)

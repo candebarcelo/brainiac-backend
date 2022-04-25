@@ -2,7 +2,7 @@ const Clarifai = require('clarifai');
 
 const app = new Clarifai.App({ // we moved Clarifai to the backend so as to protect our key, bc if it's on the frontend,
                                // anyone can see it.
-    apiKey: 'a2e8b2c805844ee28aa6be45406595fb'
+    apiKey: process.env.CLARIFAI_KEY
   }); // check here to see if the Clarifai servers are down https://www.clarifai.com/models/face-detection 
 
 const handleApiCall = (req, res) => {
