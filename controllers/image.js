@@ -1,15 +1,42 @@
-const Clarifai = require('clarifai');
-
-const app = new Clarifai.App({ // we moved Clarifai to the backend so as to protect our key, bc if it's on the frontend,
-                               // anyone can see it.
-    apiKey: process.env.CLARIFAI_KEY
-  }); // check here to see if the Clarifai servers are down https://www.clarifai.com/models/face-detection 
+const fetch = require("node-fetch");
 
 const handleApiCall = (req, res) => {
-    app.models
-        .predict('a403429f2ddf4b49b307e318f00e528b', req.body.input) 
-        .then(data => {res.json(data)}) // it makes the data received be the response when using this endpoint.
-        .catch(err => res.status(400).json('unable to work with API'))
+    const PAT = process.env.PAT;
+    const USER_ID = process.env.USER_ID;       
+    const APP_ID = process.env.APP_ID;
+    const MODEL_ID = process.env.MODEL_ID;
+    const MODEL_VERSION_ID = process.env.MODEL_VERSION_ID;
+    const IMAGE_URL = req.body.input;
+
+    const raw = JSON.stringify({
+        "user_app_id": {
+            "user_id": USER_ID,
+            "app_id": APP_ID
+        },
+        "inputs": [
+            {
+                "data": {
+                    "image": {
+                        "url": IMAGE_URL
+                    }
+                }
+            }
+        ]
+    });
+
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Key ' + PAT
+        },
+        body: raw
+    };
+
+    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
+        .then(response => response.text())
+        .then(result => {res.json(JSON.parse(result))})
+        .catch(error => res.status(400).json('unable to work with API'));
 }
 
 const handleImage = (db) => (req, res) => { /* in this case, u can only receive (db) and whenever the /image endpoint is 

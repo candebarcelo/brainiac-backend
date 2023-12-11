@@ -19,7 +19,6 @@ const db = knex({ // run knex() and save it as a variable
     }
   });
 
-db.select('*').from('users').then(data => console.log(data));
 // if we used a variable to store our data instead of a database, it'd get reset every time the server 
 // restarts. that's why we use databases for this.
 
@@ -33,7 +32,7 @@ app.use(cors()) // cors is to allow remote access control. bc otherwise Chrome d
 
 
 app.get('/', (req, res) => {
-    res.send('success'); 
+    res.send('backend ready for api calls ;)'); 
 })
 
 
